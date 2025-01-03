@@ -22,7 +22,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,8 +46,11 @@ import com.juandgaines.todoapp.presentation.home.providers.HomeScreenPreviewProv
 import com.juandgaines.todoapp.ui.theme.TodoAppTheme
 
 
+
 @Composable
-fun HomeScreenRoot(){
+fun HomeScreenRoot(
+    navigateToTaskScreen: () -> Unit
+) {
     val viewModel:HomeScreenViewModel = viewModel<HomeScreenViewModel>()
     val state = viewModel.state
     val event = viewModel.events
@@ -73,7 +76,14 @@ fun HomeScreenRoot(){
     }
     HomeScreen(
         state = state,
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when(action){
+                HomeScreenAction.OnAddTask->{
+                    navigateToTaskScreen()
+                }
+                else -> viewModel.onAction(action)
+            }
+        }
     )
 }
 
@@ -99,9 +109,11 @@ fun HomeScreen(
                 },
                 actions = {
                     Box (
-                        modifier= Modifier.padding(8.dp).clickable {
-                            isMenuExtended = true
-                        }
+                        modifier= Modifier
+                            .padding(8.dp)
+                            .clickable {
+                                isMenuExtended = true
+                            }
                     ){
                         Icon(
                             imageVector = Icons.Default.MoreVert,
@@ -135,7 +147,8 @@ fun HomeScreen(
         content = { paddingValues ->
 
             LazyColumn (
-                modifier = Modifier.padding( paddingValues = paddingValues )
+                modifier = Modifier
+                    .padding(paddingValues = paddingValues)
                     .padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(
                     8.dp
@@ -152,9 +165,11 @@ fun HomeScreen(
 
                 stickyHeader{
                     SectionTitle(
-                        modifier = Modifier.background(
-                            color = MaterialTheme.colorScheme.surface
-                        ).fillParentMaxWidth(),
+                        modifier = Modifier
+                            .background(
+                                color = MaterialTheme.colorScheme.surface
+                            )
+                            .fillParentMaxWidth(),
                         title = stringResource(R.string.pending_tasks)
                     )
                 }
@@ -219,7 +234,9 @@ fun HomeScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { }
+                onClick = {
+                    onAction(HomeScreenAction.OnAddTask)
+                }
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add Task")
             }

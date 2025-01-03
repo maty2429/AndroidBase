@@ -75,6 +75,7 @@ dependencies {
     implementation(libs.androidx.ui.text.google.fonts)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.navigation.compose)
 
     //Librerias Room
     //implementation(libs.room.ktx)
