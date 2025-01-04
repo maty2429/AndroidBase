@@ -1,4 +1,4 @@
-package com.juandgaines.todoapp.presentation.home.providers
+package com.juandgaines.todoapp.presentation.screens.home.providers
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.juandgaines.todoapp.domain.Category.OTHER

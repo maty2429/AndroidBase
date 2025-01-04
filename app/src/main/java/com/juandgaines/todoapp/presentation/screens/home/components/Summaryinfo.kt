@@ -1,4 +1,4 @@
-package com.juandgaines.todoapp.presentation.home.components
+package com.juandgaines.todoapp.presentation.screens.home.components
 
 import android.content.res.Configuration
 import androidx.compose.animation.core.Animatable

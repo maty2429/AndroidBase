@@ -1,11 +1,20 @@
-package com.juandgaines.todoapp.presentation.home
+package com.juandgaines.todoapp.presentation.screens.home
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.juandgaines.todoapp.TodoApplication
 import com.juandgaines.todoapp.data.FakeTaskLocalDataSource
+import com.juandgaines.todoapp.domain.TaskLocalDataSource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -13,10 +22,13 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
-class HomeScreenViewModel:ViewModel() {
-
-    private val taskLocalDataSource = FakeTaskLocalDataSource
+@HiltViewModel
+class HomeScreenViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
+    private val taskLocalDataSource: TaskLocalDataSource
+):ViewModel() {
 
     var state by   mutableStateOf(HomeDataState())
         private set
@@ -73,12 +85,11 @@ class HomeScreenViewModel:ViewModel() {
 
                 HomeScreenAction.OnDeleteAllTasks -> {
                     taskLocalDataSource.removeAllTasks()
-                    eventChannel.send(HomeScreenEvent.UpdatedTask)
+                    eventChannel.send(HomeScreenEvent.AllTaskDeleted)
                 }
 
                 else-> Unit
             }
         }
     }
-
 }

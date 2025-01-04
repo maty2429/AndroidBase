@@ -1,4 +1,4 @@
-package com.juandgaines.todoapp.presentation.detail
+package com.juandgaines.todoapp.presentation.screens.detail
 
 import androidx.compose.foundation.text.input.TextFieldState
 import com.juandgaines.todoapp.domain.Category

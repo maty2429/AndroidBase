@@ -1,9 +1,9 @@
-package com.juandgaines.todoapp.presentation.detail.provider
+package com.juandgaines.todoapp.presentation.screens.detail.provider
 
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.juandgaines.todoapp.domain.Category
-import com.juandgaines.todoapp.presentation.detail.TaskScreenState
+import com.juandgaines.todoapp.presentation.screens.detail.TaskScreenState
 
 class TaskScreenStatePreviewProvider: PreviewParameterProvider<TaskScreenState> {
     override val values: Sequence<TaskScreenState>

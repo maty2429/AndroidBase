@@ -1,4 +1,4 @@
-package com.juandgaines.todoapp.presentation.home
+package com.juandgaines.todoapp.presentation.screens.home
 
 import com.juandgaines.todoapp.domain.Task
 

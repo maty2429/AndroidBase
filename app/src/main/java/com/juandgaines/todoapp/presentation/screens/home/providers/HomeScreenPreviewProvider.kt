@@ -1,9 +1,9 @@
-package com.juandgaines.todoapp.presentation.home.providers
+package com.juandgaines.todoapp.presentation.screens.home.providers
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.juandgaines.todoapp.domain.Category
 import com.juandgaines.todoapp.domain.Task
-import com.juandgaines.todoapp.presentation.home.HomeDataState
+import com.juandgaines.todoapp.presentation.screens.home.HomeDataState
 
 class HomeScreenPreviewProvider:PreviewParameterProvider<HomeDataState> {
     override val values: Sequence<HomeDataState>
